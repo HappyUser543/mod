@@ -1,0 +1,41 @@
+function LoadCustomInstance(url:string,Name:string)
+    if not isfile(Name..".rbxm") then
+        writefile(Name..".rbxm", game:HttpGet(url))
+    end
+
+    return game:GetObjects(getcustomasset(Name..".rbxm",true))[1]
+end
+
+function MoveTo(cframe,speed,model)
+	local reached = false
+	local connection; connection = game:GetService("RunService").Stepped:Connect(function(_, step)
+        local pivot = model:GetPivot()
+        local difference = (cframe.Position - pivot.Position)
+        local unit = difference.Unit
+        local magnitude = difference.Magnitude
+
+        if magnitude > 0.1 then
+            model:PivotTo(pivot + unit * math.min(step * speed, magnitude))
+        else
+            connection:Disconnect()
+            reached = true
+        end
+
+	repeat game:GetService("RunService").Stepped:Wait() until reached
+end
+
+local Rooms = game.Workspace.CurrentRooms:GetChildren()
+
+local ManiacAmbushModel = LoadCustomInstance("https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/NMAmbush.rbxm","Maniac_ambush")
+ManiacAmbushModel.Parent = game.Workspace
+
+local Ambush = ManiacAmbushModel.AmbushNew
+
+local s = Instance.new("Sound",game.Workspace)
+s.SoundId = "rbxassetid://134020218579308"
+s.PlaybackSpeed = 0.8
+s:Play()
+
+s.Played:wait()
+
+Ambush.CFrame = Rooms[1].RoomEntrance.CFrame
