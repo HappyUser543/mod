@@ -24,7 +24,7 @@ function MoveTo(cframe,speed,model)
 	repeat game:GetService("RunService").Stepped:Wait() until reached
 end
 
-local Rooms = game.Workspace.CurrentRooms:GetChildren()
+local Rooms = game.Workspace.CurrentRooms
 
 local ManiacAmbushModel = LoadCustomInstance("https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/NMAmbush.rbxm","Maniac_ambush")
 ManiacAmbushModel.Parent = game.Workspace
@@ -38,4 +38,8 @@ s:Play()
 
 s.Played:wait()
 
-Ambush.CFrame = Rooms[1].RoomEntrance.CFrame
+Ambush.CFrame = Rooms:GetChildren()[1].RoomEntrance.CFrame
+
+for i = 1 , 6 do
+	for _ , Room in Rooms:GetChidren() do
+		
