@@ -41,5 +41,32 @@ s.Played:wait()
 Ambush.CFrame = Rooms:GetChildren()[1].RoomEntrance.CFrame
 
 for i = 1 , 6 do
-	for _ , Room in Rooms:GetChidren() do
-		
+	for _ = 0 , #Rooms:GetChildren() , 1 do
+		if Room.Parent then
+			local WayPoints = Room:FindFirstChild("PathFindNodes")
+			if WayPoints then
+				for _ , Point in WayPoints:GetChildren() do
+                    MoveTo(Point.CFrame,170,Ambush)
+                end
+            end
+            if Room:FindFirstChild("RoomExit") then
+                MoveTo(Room.RoomExit.CFrame,170,Ambush)
+            end
+        end
+    end
+	for _ = #Rooms:GetChildren() , 0 , -1 do
+		if Room.Parent then
+			local WayPoints = Room:FindFirstChild("PathFindNodes")
+			if WayPoints then
+                table.sort(WayPoints, function(a, b) return tonumber(a.Name) > tonumber(b.Name) end)
+				for _ , Point in WayPoints:GetChildren() do
+                    MoveTo(Point.CFrame,170,Ambush)
+                end
+            end
+            if Room:FindFirstChild("RoomExit") then
+                MoveTo(Room.RoomExit.CFrame,170,Ambush)
+            end
+        end
+    end
+    task.wait(2)
+end
