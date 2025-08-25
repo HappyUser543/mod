@@ -1,0 +1,36 @@
+function LoadCustomInstance(url:string,Name:string)
+    if not isfile(Name..".rbxm") then
+        writefile(Name..".rbxm", game:HttpGet(url))
+    end
+
+    return game:GetObjects(getcustomasset(Name..".rbxm",true))[1]
+end
+
+task.wait(0.7)
+
+local Rooms = game.Workspace.CurrentRooms:GetChildren()
+local LastRoom: Model = Rooms[#Rooms -1]
+
+local ObsessionModel = LoadCustomInstance("https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/Greed.Obssesion.rbxm", "Obession_model")
+ObsessionModel.Parent = game.Workspace
+
+local Obsession = ObsessionModel.ObsessionNew
+Obsession.CFrame = LastRoom.Parts.Floor.CFrame + Vector3.new(0,5,0)
+
+for _ , v in LastRoom:GetDescendants() do
+    if v:IsA("PointLight") or v:IsA("SpotLight") or v:IsA("SurfaceLight") or v.Name == "Neon" then
+        v:Destroy()
+    end
+end
+
+while game.ReplicatedStorage.GameData.LatestRoom.Value == tonumber(LastRoom.Name) do
+    task.wait(0.1)
+    local _ , Looking = game.Workspace.CurrentCamera:WorldToViewportPoint(Obsession.Position)
+    if not Looking then
+        game.Players.LocalPlayer.Character.Humanoid:TakeDamage(5)
+        firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"Oh... hello.","Not this place again...","Nevermind that... What'd you die to?","Oh... that thing.","It really wants attention","Maybe you could call it Obsession?","Anyways, I hope you don't mind trying again. It would be helpful."},"Yellow")
+        game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Obsession"
+    end
+end
+
+ObsessionModel:Destroy()
