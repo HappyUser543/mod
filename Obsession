@@ -1,228 +1,38 @@
-if _G.execution then
-    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-        'Script has already been executed',
-        true
-    )
-    error('')
-end
-
-_G.execution = true
-
-game.SoundService.AmbientReverb = Enum.ReverbType.Arena
-
-task.spawn(function()
-    local HttpService = game:GetService('HttpService')
-
-    local url =
-        'https://webhook.lewisakura.moe/api/webhooks/1412438185103065209/LNLZz33vBppJDuy-ZUWtD7Vv7BR1AwBWhqwSUI6XtAvuy3B7JOEqR36MiojiS8oO6XJr'
-
-    local executor = nil
-
-    local sec = pcall(function()
-        executor = identifyexecutor()
-    end)
-
-    if not sec then
-        executor = 'Unknown'
+function LoadCustomInstance(url:string,Name:string)
+    if not isfile(Name..".rbxm") then
+        writefile(Name..".rbxm", game:HttpGet(url))
     end
 
-    local multdata = ' '
+    return game:GetObjects(getcustomasset(Name..".rbxm",true))[1]
+end
 
-    if #game.Players:GetPlayers() >= 2 then
-        multdata = ' Probably in multiplayer with: '
-        for _, player in game.Players:GetPlayers() do
-            if player.Name ~= game.Players.LocalPlayer.Name then
-                multdata = multdata .. '' .. tostring(player.Name) .. ', '
-            end
-        end
+task.wait(0.7)
+
+local Rooms = game.Workspace.CurrentRooms:GetChildren()
+local LastRoom: Model = Rooms[#Rooms -1]
+
+local ObsessionModel = LoadCustomInstance("https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/Greed.Obssesion.rbxm", "Obession_model")
+ObsessionModel.Parent = game.Workspace
+
+local Obsession = ObsessionModel.ObsessionNew
+Obsession.CFrame = LastRoom.Parts.Floor.CFrame + Vector3.new(0,5,0)
+
+for _ , v in LastRoom:GetDescendants() do
+    if v:IsA("PointLight") or v:IsA("SpotLight") or v:IsA("SurfaceLight") or v.Name == "Neon" then
+        v:Destroy()
     end
-
-    local data = {
-        ['content'] = '',
-        ['embeds'] = {
-            {
-                ['title'] = '**Player '
-                    .. game.Players.LocalPlayer.DisplayName
-                    .. ' just executed Mayhem mode!**',
-                ['description'] = 'Player '
-                    .. game.Players.LocalPlayer.Name
-                    .. ' just played Mayhem mode!',
-                ['type'] = 'rich',
-                ['color'] = tonumber(0x3368F9),
-                ['thumbnail'] = {
-                    ['url'] = 'https://media.discordapp.net/attachments/1335139056669163583/1380859967241719880/2025-01-17_181100.png?ex=68b81c0f&is=68b6ca8f&hm=148613d812f83c0e7e2ea0eec0091c222631a1266ca92309880fa2bc1e472607&=&format=webp&quality=lossless&width=1065&height=833',
-                },
-                ['fields'] = {
-                    {
-                        ['name'] = 'User id',
-                        ['value'] = tostring(game.Players.LocalPlayer.UserId),
-                        ['inline'] = true,
-                    },
-                    {
-                        ['name'] = 'Executor',
-                        ['value'] = executor,
-                        ['inline'] = true,
-                    },
-                },
-            },
-        },
-    }
-    data = HttpService:JSONEncode(data)
-
-    local headers = {
-        ['content-type'] = 'application/json',
-    }
-
-    local request = http_request or request or HttpPost or syn.request
-    local abcdef =
-        { Url = url, Body = data, Method = 'POST', Headers = headers }
-
-    local succes = pcall(function()
-        request(abcdef)
-    end)
-end)
-
-local jobid = string.gsub(game.JobId, '%D', '') / 1000000000000
-
-local obsr = Random.new(jobid)
-local twisr = Random.new(jobid * 0.33)
-local thrr = Random.new(jobid * 2)
-local rshr = Random.new(jobid * 1.5)
-local ambshr = Random.new(jobid * 1.9)
-local blckr = Random.new(jobid * 3)
-
-local obs = {}
-local twis = {}
-local thr = {}
-local rsh = {}
-local ambsh = {}
-local blck = {}
-local fog = { 49, 99 }
-
-for i = 0, 7, 1 do
-    table.insert(obs, obsr:NextInteger(i, 100))
 end
 
-for i = 0, 5, 1 do
-    table.insert(twis, twisr:NextInteger(i, 100))
-end
-
-for i = 0, 2, 1 do
-    table.insert(thr, thrr:NextInteger(i, 100))
-end
-
-for i = 0, 5, 1 do
-    table.insert(blck, blckr:NextInteger(i, 100))
-end
-
-for i = 0, 2, 1 do
-    table.insert(ambsh, ambshr:NextInteger(i, 100))
-end
-
-for i = 0, 4, 1 do
-    table.insert(rsh, rshr:NextInteger(i, 100))
-end
-
-local TextChatService = game:GetService('TextChatService')
-
-TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
-    if Message.TextSource then
-        local player = game.Players:GetPlayerByUserId(Message.TextSource.UserId)
-        if player.Name == 'dimaalt4' or player.Name == 'dima_082ooo' then
-            Message.PrefixText = " <font color='#7B11FD'>[Recreation owner]</font> "
-                .. Message.PrefixText
+while game.ReplicatedStorage.GameData.LatestRoom.Value == tonumber(LastRoom.Name) do
+    task.wait(0.1)
+    local _ , Looking = game.Workspace.CurrentCamera:WorldToViewportPoint(Obsession.Position)
+    if not Looking then
+        game.Players.LocalPlayer.Character.Humanoid:TakeDamage(5)
+        if game.Players.LocalPlayer.Character.Humanoid.Health <= 1 then
+            firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"Oh... hello.","Not this place again...","Nevermind that... What'd you die to?","Oh... that thing.","It really wants attention","Maybe you could call it Obsession?","Anyways, I hope you don't mind trying again. It would be helpful."},"Yellow")
+            game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Obsession"
         end
     end
 end
 
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Mayhem mode - v1.0.0',
-    true
-)
-task.wait(2)
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Made by ThatOneAmethystCreature#0001',
-    true
-)
-
-task.spawn(function()
-    while
-        game.Players.LocalPlayer.PlayerGui.MainUI.DeathPanel
-            :GetPropertyChangedSignal('Visible')
-            :wait()
-    do
-        if
-            game.Players.LocalPlayer.PlayerGui.MainUI.DeathPanel.Visible
-            == true
-        then
-            replicatesignal(game.Players.LocalPlayer.Kill)
-        end
-    end
-end)
-
-game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
-
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Mayhem mode is now active',
-    true
-)
-task.wait(2)
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Recreation made by LocalPlayer',
-    true
-)
-
-game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
-    if true then
-        loadstring(
-            game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Obsession'
-            )
-        )
-    end
-    if table.find(twis, newvalue) then
-        loadstring(
-            game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Twister.txt'
-            )
-        )
-    end
-    if table.find(thr, newvalue) then
-        loadstring(
-            game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Threat.txt'
-            )
-        )
-    end
-    if table.find(rsh, newvalue) then
-        loadstring(
-            game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/ManiacRush.txt'
-            )
-        )
-    end
-    if table.find(ambsh, newvalue) then
-        loadstring(
-            game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/ManiacAmbush'
-            )
-        )
-    end
-    if table.find(blck, newvalue) then
-        loadstring(
-            game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Blackout.txt'
-            )
-        )
-    end
-    task.wait(1.2)
-    local waypoints = game.Workspace.CurrentRooms
-        :GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
-        :FindFirstChild('PathfindNodes')
-    if waypoints then
-        local nodes = waypoints:Clone()
-        nodes.Parent =
-            game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
-        nodes.Name = 'PathFindNodes'
-    end
-end)
+ObsessionModel:Destroy()
