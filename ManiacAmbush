@@ -64,7 +64,8 @@ for i = 1 , 6 do
 		if Room.Parent then
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
-				for _ , Point in WayPoints:GetChildren() do
+				WayPoints = WayPoints:GetChildren()
+				for _ , Point in WayPoints do
                     if not Point.Parent then continue end
                     MoveTo(Point.CFrame,170,Ambush)
                 end
@@ -79,8 +80,9 @@ for i = 1 , 6 do
 		if Room.Parent then
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
+				WayPoints = WayPoints:GetChildren()
                 table.sort(WayPoints, function(a, b) return tonumber(a.Name) > tonumber(b.Name) end)
-				for _ , Point in WayPoints:GetChildren() do
+				for _ , Point in WayPoints do
                     if not Point.Parent then continue end
                     MoveTo(Point.CFrame,170,Ambush)
                 end
