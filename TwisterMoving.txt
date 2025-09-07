@@ -127,8 +127,9 @@ for i = 1 , 6 do
 		if Room.Parent then
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
+				WayPoints:GetChildren()
                 table.sort(WayPoints, function(a, b) return tonumber(a.Name) > tonumber(b.Name) end)
-				for _ , Point in WayPoints:GetChildren() do
+				for _ , Point in WayPoints do
                     if not Point.Parent then continue end
                     MoveTo(Point.CFrame,100,Twister)
                 end
@@ -144,7 +145,8 @@ for i = 1 , 6 do
 		    require(game.ReplicatedStorage.ModulesClient.Module_Events).shatter(Room)
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
-				for _ , Point in WayPoints:GetChildren() do
+				WayPoints:GetChildren()
+				for _ , Point in WayPoints do
                     if not Point.Parent then continue end
                     MoveTo(Point.CFrame,100,Twister)
                 end
@@ -155,5 +157,6 @@ for i = 1 , 6 do
         end
     end
 end
+
 
 TwisterModel:Destroy()
