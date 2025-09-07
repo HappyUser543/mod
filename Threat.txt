@@ -213,7 +213,7 @@ for i = 1, 6 do
         if Room.Parent then
             local WayPoints = Room:FindFirstChild('PathFindNodes')
             if WayPoints then
-                WayPoints:GetChildren()
+                WayPoints = WayPoints:GetChildren()
                 for _, Point in WayPoints do
                     if not Point.Parent then
                         continue
@@ -232,4 +232,5 @@ end
 ThreatModel:Destroy()
 
 correction:Destroy()
+
 
