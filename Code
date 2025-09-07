@@ -110,6 +110,15 @@ for i = 0,4,1 do
     table.insert(rsh,rshr:NextInteger(i,100))
 end
 
+TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
+	if Message.TextSource then
+		local player = game.Players:GetPlayerByUserId(Message.TextSource.UserId)
+		if player.Name == "dimaalt4" or player.Name == "dima_082ooo" then
+			Message.PrefixText = " <font color='#7B11FD'>[Recreation owner]</font> " .. Message.PrefixText
+		end
+	end
+end
+
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Mayhem mode - v1.0.0",true)
 task.wait(2)
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Made by ThatOneAmethystCreature#0001",true)
