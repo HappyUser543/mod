@@ -192,6 +192,7 @@ for i = 1, 6 do
         if Room.Parent then
             local WayPoints = Room:FindFirstChild('PathFindNodes')
             if WayPoints then
+                WayPoints = WayPoints:GetChildren()
                 table.sort(WayPoints, function(a, b)
                     return tonumber(a.Name) > tonumber(b.Name)
                 end)
@@ -212,6 +213,7 @@ for i = 1, 6 do
         if Room.Parent then
             local WayPoints = Room:FindFirstChild('PathFindNodes')
             if WayPoints then
+                WayPoints:GetChildren()
                 for _, Point in WayPoints:GetChildren() do
                     if not Point.Parent then
                         continue
@@ -228,4 +230,5 @@ for i = 1, 6 do
 end
 
 ThreatModel:Destroy()
+
 correction:Destroy()
