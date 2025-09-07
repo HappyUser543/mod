@@ -124,7 +124,8 @@ for u = 1, #Rooms:GetChildren(), 1 do
         )
         local WayPoints = Room:FindFirstChild('PathFindNodes')
         if WayPoints then
-            for _, Point in WayPoints:GetChildren() do
+            WayPoints:GetChildren()
+            for _, Point in WayPoints do
                 if not Point.Parent then
                     continue
                 end
@@ -142,10 +143,11 @@ for u = #Rooms:GetChildren(), 1, -1 do
     if Room.Parent then
         local WayPoints = Room:FindFirstChild('PathFindNodes')
         if WayPoints then
+            WayPoints:GetChildren()
             table.sort(WayPoints, function(a, b)
                 return tonumber(a.Name) > tonumber(b.Name)
             end)
-            for _, Point in WayPoints:GetChildren() do
+            for _, Point in WayPoints do
                 if not Point.Parent then
                     continue
                 end
@@ -159,3 +161,4 @@ for u = #Rooms:GetChildren(), 1, -1 do
 end
 
 ManiacRushModel:Destroy()
+
