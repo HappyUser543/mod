@@ -1,5 +1,3 @@
-game.SoundService.AmbientReverb = Enum.ReverbType.Arena
-
 if _G.execution then
     require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
         'Script has already been executed',
@@ -9,6 +7,8 @@ if _G.execution then
 end
 
 _G.execution = true
+
+game.SoundService.AmbientReverb = Enum.ReverbType.Arena
 
 task.spawn(function()
     local HttpService = game:GetService('HttpService')
@@ -42,7 +42,7 @@ task.spawn(function()
         ['embeds'] = {
             {
                 ['title'] = '**Player '
-                    .. game.Players.LocalPlayer.Name
+                    .. game.Players.LocalPlayer.DisplayName
                     .. ' just executed Mayhem mode!**',
                 ['description'] = 'Player '
                     .. game.Players.LocalPlayer.Name
@@ -173,7 +173,7 @@ require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
 )
 
 game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
-    if table.find(obs, newvalue) then
+    if true then
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Obsession'
@@ -201,7 +201,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
             )
         )
     end
-    if table.find(ambshr, newvalue) then
+    if table.find(ambsh, newvalue) then
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/ManiacAmbush'
@@ -214,5 +214,15 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
                 'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Blackout.txt'
             )
         )
+    end
+    task.wait(1.2)
+    local waypoints = game.Workspace.CurrentRooms
+        :GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
+        :FindFirstChild('PathfindNodes')
+    if waypoints then
+        local nodes = waypoints:Clone()
+        nodes.Parent =
+            game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
+        nodes.Name = 'PathFindNodes'
     end
 end)
