@@ -1,0 +1,71 @@
+local damaged = false
+
+function LoadCustomSound(url:string,Name:string)
+    if not isfile(Name..".mp3") then
+        writefile(Name..".mp3", game:HttpGet(url))
+    end
+
+    return getcustomasset(Name..".mp3",true)
+end
+
+local ui = game.CoreGui.ContactList
+local frame = Instance.new("Frame",ui)
+frame.Size = UDim2.new(1,0,1,0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+local image = Instance.new("ImageLabel",ui)
+image.Position = UDim2.new(0.5,0,0.5,0)
+image.Size = UDim2.new(0.35,0,0.5,0)
+image.AnchorPoint = Vector2.new(0.5,0.5)
+image.Image = "rbxassetid://73478163987988"
+image.BorderSizePixel = 0
+image.Visible = false
+local sound = Instance.new("Sound",game.Workspace)
+sound.SoundId = "rbxassetid://8316701225"
+sound:Play()
+local soundj = Instance.new("Sound",game.Workspace)
+soundj.SoundId = "rbxassetid://176554627"
+soundj.Volume = 0.5
+soundj.Looped = true
+local soundd = Instance.new("Sound",game.Workspace)
+soundd.SoundId = LoadCustomSound("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Mayhem%20mode%20recreate/BlackoutDisappear.MP3","BlackoutDisappear")
+soundd.Volume = 1
+
+task.wait(1)
+
+task.spawn(function()
+    while task.wait() and damaged == false do
+        if game.Players.LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
+            damaged = true
+            local soundjump = Instance.new("Sound",game.Workspace)
+            soundjump.SoundId = "rbxassetid://8991674830"
+            soundjump.Volume = 2
+            soundjump:Play()
+            image.Visible = true
+            task.wait(1)
+            image.Size = UDim2.new(0.7,0,1,0)
+            task.wait(1.8)
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+            firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"Oh... hello.","Not this place again...","Nevermind that... What'd you die to?","Oh... that thing.","It usually comes with a blackout, so","Maybe you could call it Blackout?","Anyways, I hope you don't mind trying again. It would ne helpful."},"Yellow")
+            game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Blackout"
+            soundjump:Destroy()
+            frame:Destroy()
+            image:Destroy()
+            sound:Destroy()
+            soundj:Destroy()       
+        end
+    end
+end)
+
+task.wait(4)
+soundj:Play()
+soundd:Play()
+
+task.wait(6)
+
+frame:Destroy()
+image:Destroy()
+soundj:Destroy()
+sound:Destroy()
+soundd:Destroy()
+
+damaged = true
