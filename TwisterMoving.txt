@@ -1,0 +1,159 @@
+function LoadCustomInstance(url:string,Name:string)
+    if not isfile(Name..".rbxm") then
+        writefile(Name..".rbxm", game:HttpGet(url))
+    end
+
+    return game:GetObjects(getcustomasset(Name..".rbxm",true))[1]
+end
+
+function LoadCustomSound(url:string,Name:string)
+    if not isfile(Name..".mp3") then
+        writefile(Name..".mp3", game:HttpGet(url))
+    end
+
+    return getcustomasset(Name..".mp3",true)
+end
+
+task.wait()
+
+local sounds = {
+    "https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/Twister_apperiance.mp3",
+    "https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/Twister_apperiance_3.mp3",
+    "https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/Twister_apperiance_next.mp3"
+}
+
+for i , sou in sounds do
+    local sound = Instance.new("Sound",game.Workspace)
+    sound.SoundId = LoadCustomSound(sou, "Twister_appear"..i)
+    sound.Volume = 2
+    sound.Parent = game.Workspace
+    if i ~= 3 then sound:Play() else 
+        task.wait(0.7) 
+        sound:Play()
+    end
+    task.spawn(function() game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+        sound:Destroy()
+    end)
+end
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+
+local killed = false
+
+local Rooms = game.Workspace.CurrentRooms
+
+local TwisterModel = LoadCustomInstance("https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/Scream.Stare.Twister.rbxm", "Twister_model")
+TwisterModel.Parent = game.Workspace
+
+local Twister = TwisterModel.ScreamNew
+Twister.Anchored = true
+
+local s = Instance.new("Sound",game.Workspace)
+s.SoundId = LoadCustomSound("https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/twister_scream_appereance.mp3", "Twister_appearonroom")
+s.Volume = 2
+s:Play()
+
+Twister.PlaySound.SoundId = LoadCustomSound("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Mayhem%20mode%20recreate/TwisterScream2.mp3","TwisterScream2")
+Twister.PlaySound.PlaybackSpeed = 1
+for _ , inst in Twister.PlaySound:GetChildren() do
+    inst:Destroy()
+end
+
+repeat task.wait(0.1) until Rooms:GetChildren()[#Rooms:GetChildren()]:FindFirstChild("RoomExit")
+
+Twister.CFrame = Rooms:GetChildren()[#Rooms:GetChildren()].RoomExit.CFrame
+
+task.wait(2)
+
+Twister:SetAttribute("Paused",false)
+
+function MoveTo(cframe,speed,model)
+	local reached = false
+	local connection; connection = game:GetService("RunService").Stepped:Connect(function(_, step)
+	    if Twister:GetAttribute("Paused") == false then
+            local pivot = model:GetPivot()
+            local difference = (cframe.Position - pivot.Position)
+            local unit = difference.Unit
+            local magnitude = difference.Magnitude
+    
+            if magnitude > 0.1 then
+                model:PivotTo(pivot + unit * math.min(step * speed, magnitude))
+            else
+                connection:Disconnect()
+                reached = true
+            end
+        end
+    end)
+	repeat game:GetService("RunService").Stepped:Wait() until reached
+end
+
+task.spawn(function()
+    while TwisterModel.Parent and task.wait() do
+        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Twister.Position).magnitude
+        if distance < 100 then
+            require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).camShaker:ShakeOnce(2/100*(100 - distance), 20/100*(100 - distance), 0.1, 1)
+        end
+        local ray = game.Workspace:Raycast(Twister.Position, (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Twister.Position).Unit * 50)
+        if ray then
+            if ray.Instance.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false and killed == false or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false and killed == false then
+                Twister:SetAttribute("Paused",true)
+                killed = true
+                local cf = game.Workspace.CurrentCamera.CFrame
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+                contact = game:GetService("RunService").RenderStepped:Connect(function()
+                    game.Workspace.CurrentCamera.CFrame = cf
+                end)
+                local jumpscare = Instance.new("Sound",game.Workspace)
+                jumpscare.SoundId = LoadCustomSound("https://github.com/Jahani-john/mayhem-mode/raw/refs/heads/main/mayhemmode-main/death_jumpscare.mp3", "Twister_jumpscare")
+                jumpscare.Volume = 3.5
+                jumpscare:Play()
+                jumpscare.Ended:Wait()
+                contact:Disconnect()
+                Twister:SetAttribute("Paused",false)
+                jumpscare:Destroy()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+
+                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Twister"
+            end
+        end
+    end
+end)
+
+
+for i = 1 , 6 do
+	for u = #Rooms:GetChildren() , 1 , -1 do
+        local Room = Rooms:GetChildren()[u]
+		if Room.Parent then
+			local WayPoints = Room:FindFirstChild("PathFindNodes")
+			if WayPoints then
+                table.sort(WayPoints, function(a, b) return tonumber(a.Name) > tonumber(b.Name) end)
+				for _ , Point in WayPoints:GetChildren() do
+                    if not Point.Parent then continue end
+                    MoveTo(Point.CFrame,100,Twister)
+                end
+            end
+            if Room:FindFirstChild("RoomExit") then
+                MoveTo(Room.RoomExit.CFrame,100,Twister)
+            end
+        end
+    end
+	for u = 1 , #Rooms:GetChildren() , 1 do
+        local Room = Rooms:GetChildren()[u]
+		if Room.Parent then
+		    require(game.ReplicatedStorage.ModulesClient.Module_Events).shatter(Room)
+			local WayPoints = Room:FindFirstChild("PathFindNodes")
+			if WayPoints then
+				for _ , Point in WayPoints:GetChildren() do
+                    if not Point.Parent then continue end
+                    MoveTo(Point.CFrame,100,Twister)
+                end
+            end
+            if Room:FindFirstChild("RoomExit") then
+                MoveTo(Room.RoomExit.CFrame,100,Twister)
+            end
+        end
+    end
+end
+
+TwisterModel:Destroy()
