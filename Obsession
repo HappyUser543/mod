@@ -28,8 +28,10 @@ while game.ReplicatedStorage.GameData.LatestRoom.Value == tonumber(LastRoom.Name
     local _ , Looking = game.Workspace.CurrentCamera:WorldToViewportPoint(Obsession.Position)
     if not Looking then
         game.Players.LocalPlayer.Character.Humanoid:TakeDamage(5)
-        firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"Oh... hello.","Not this place again...","Nevermind that... What'd you die to?","Oh... that thing.","It really wants attention","Maybe you could call it Obsession?","Anyways, I hope you don't mind trying again. It would be helpful."},"Yellow")
-        game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Obsession"
+        if game.Players.LocalPlayer.Character.Humanoid.Health <= 1 then
+            firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"Oh... hello.","Not this place again...","Nevermind that... What'd you die to?","Oh... that thing.","It really wants attention","Maybe you could call it Obsession?","Anyways, I hope you don't mind trying again. It would be helpful."},"Yellow")
+            game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Obsession"
+        end
     end
 end
 
