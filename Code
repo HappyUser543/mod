@@ -48,6 +48,16 @@ for i = 0,4,1 do
     table.insert(rsh,rshr:NextInteger(i,100))
 end
 
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Mayhem mode - v1.0.0",true)
+task.wait(2)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Made by ThatOneAmethystCreature#0001",true)
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Mayhem mode is now active",true)
+task.wait(2)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Recreation made by LocalPlayer",true)
+
 game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
     table.find(obs,newvalue) then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Obsession"))
