@@ -176,21 +176,21 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
     if true then
         loadstring(
             game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Obsession'
+                'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
             )
         )
     end
     if table.find(twis, newvalue) then
         loadstring(
             game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Twister.txt'
+                'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Twister.txt'
             )
         )
     end
     if table.find(thr, newvalue) then
         loadstring(
             game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Threat.txt'
+                'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Threat.txt'
             )
         )
     end
