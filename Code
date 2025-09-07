@@ -1,1 +1,70 @@
+game.SoundService.AmbientReverb = Enum.ReverbType.Arena
 
+if _G.execution then
+    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Script has already been executed",true)
+    error("")
+end
+
+_G.execution = true
+
+local jobid = string.gsub(game.JobId, "%D", "") / 1000000000000
+
+local obsr = Random.new(jobid)
+local twisr = Random.new(jobid * 0.33)
+local thrr = Random.new(jobid * 2)
+local rshr = Random.new(jobid * 1.5)
+local ambshr = Random.new(jobid * 1.9)
+local blckr = Random.new(jobid * 3)
+
+local obs = {}
+local twis = {}
+local thr = {}
+local rsh = {}
+local ambsh = {}
+local blck = {}
+local fog = {49,99}
+
+for i = 0,7,1 do
+    table.insert(obs,obsr:NextInteger(i,100))
+end
+
+for i = 0,5,1 do
+    table.insert(twis,twisr:NextInteger(i,100))
+end
+
+for i = 0,2,1 do
+    table.insert(thr,thrr:NextInteger(i,100))
+end
+
+for i = 0,5,1 do
+    table.insert(blck,blckr:NextInteger(i,100))
+end
+
+for i = 0,2,1 do
+    table.insert(ambsh,ambshr:NextInteger(i,100))
+end
+
+for i = 0,4,1 do
+    table.insert(rsh,rshr:NextInteger(i,100))
+end
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
+    table.find(obs,newvalue) then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Obsession"))
+    end
+    table.find(twis,newvalue) then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Twister.txt"))
+    end
+    table.find(thr,newvalue) then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Threat.txt"))
+    end
+    table.find(rsh,newvalue) then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/ManiacRush.txt"))
+    end
+    table.find(ambshr,newvalue) then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/ManiacAmbush"))
+    end
+    table.find(blck,newvalue) then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/Blackout.txt"))
+    end
+end
