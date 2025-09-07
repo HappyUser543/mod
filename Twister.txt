@@ -87,5 +87,6 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
 
 local randomsec = Random.new((game.ReplicatedStorage.GameData.GameSeed.Value + game.ReplicatedStorage.GameData.LatestRoom.Value) * 2)
 if randomsec:NextInteger(0,1) == 0 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/--M--a---y---h--e--m--M--o---d---e---/refs/heads/main/TwisterMoving.txt"))
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/TwisterMoving.txt"))
 end
+
