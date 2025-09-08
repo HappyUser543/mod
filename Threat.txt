@@ -204,7 +204,7 @@ for i = 1, 6 do
                 end
             end
             if Room:FindFirstChild('RoomExit') then
-                MoveTo(Room.RoomExit.CFrame, 120, Threat)
+                MoveTo(Room.RoomEntrance.CFrame, 120, Threat)
             end
         end
     end
@@ -232,5 +232,6 @@ end
 ThreatModel:Destroy()
 
 correction:Destroy()
+
 
 
