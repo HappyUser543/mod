@@ -124,7 +124,7 @@ end)
 for i = 1 , 6 do
 	for u = #Rooms:GetChildren() , 1 , -1 do
         local Room = Rooms:GetChildren()[u]
-		if Room.Parent then
+		if Room then
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
 				WayPoints = WayPoints:GetChildren()
@@ -141,7 +141,7 @@ for i = 1 , 6 do
     end
 	for u = 1 , #Rooms:GetChildren() , 1 do
         local Room = Rooms:GetChildren()[u]
-		if Room.Parent then
+		if Room then
 		    require(game.ReplicatedStorage.ModulesClient.Module_Events).shatter(Room)
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
@@ -160,5 +160,6 @@ end
 
 
 TwisterModel:Destroy()
+
 
 
