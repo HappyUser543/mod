@@ -36,7 +36,7 @@ game:GetService('TweenService')
     )
     :Play()
 
-Threat.CFrame = Rooms:GetChildren()[#Rooms:GetChildren()].RoomExit.CFrame
+Threat.CFrame = Rooms:GetChildren()[#Rooms:GetChildren()]:WaitForChild("RoomExit").CFrame
 
 sound.Ended:Wait()
 sound:Destroy()
@@ -232,6 +232,7 @@ end
 ThreatModel:Destroy()
 
 correction:Destroy()
+
 
 
 
