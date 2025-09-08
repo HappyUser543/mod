@@ -39,7 +39,7 @@ s:Play()
 
 task.wait(4)
 
-Ambush.CFrame = Rooms:GetChildren()[1].RoomEntrance.CFrame
+Ambush.CFrame = Rooms:GetChildren()[1]:WaitForChild("RoomEntrance").CFrame
 
 task.spawn(function()
     while ManiacAmbushModel.Parent and task.wait() do
