@@ -173,7 +173,7 @@ require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
 )
 
 game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
-    if true then
+    if table.find(obs, newvalue) then
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
