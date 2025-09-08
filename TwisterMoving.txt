@@ -135,7 +135,7 @@ for i = 1 , 6 do
                 end
             end
             if Room:FindFirstChild("RoomExit") then
-                MoveTo(Room.RoomExit.CFrame,100,Twister)
+                MoveTo(Room.RoomEntrance.CFrame,100,Twister)
             end
         end
     end
@@ -160,4 +160,5 @@ end
 
 
 TwisterModel:Destroy()
+
 
