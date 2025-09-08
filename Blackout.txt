@@ -58,15 +58,15 @@ end)
 
 task.wait(4)
 soundj:Play()
-soundd:Play()
 
 task.wait(6)
 
+soundd:Play()
 frame:Destroy()
 image:Destroy()
 soundj:Destroy()
 soundd:Destroy()
-soundd:Destroy()
 
 damaged = true
+
 
