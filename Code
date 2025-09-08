@@ -123,7 +123,7 @@ for i = 0, 4, 1 do
     table.insert(rsh, rshr:NextInteger(i, 100))
 end
 
-local AdminCommands = {7471771361,9162624705}
+local AdminCommands = { 7471771361, 9162624705 }
 
 local TextChatService = game:GetService('TextChatService')
 
@@ -139,41 +139,76 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
                 .. Message.PrefixText
         end
     end
-    if table.find(AdminCommands, Message.TextSource.UserId) and Message.Status == Enum.TextChatMessageStatus.Success then
-        if command == "/obsession" then
+    if
+        table.find(AdminCommands, Message.TextSource.UserId)
+        and Message.Status == Enum.TextChatMessageStatus.Success
+    then
+        if command == '/obsession' then
             loadstring(
                 game:HttpGet(
                     'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
                 )
             )()
-        elseif command == "/twister" then
+        elseif command == '/twister' then
             loadstring(
                 game:HttpGet(
                     'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Twister.txt'
                 )
             )()
-        elseif command == "/threat" then
+        elseif command == '/threat' then
             loadstring(
                 game:HttpGet(
                     'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Threat.txt'
                 )
             )()
-        elseif command == "/maniac rush" then
+        elseif command == '/maniac rush' then
             loadstring(
                 game:HttpGet(
                     'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
                 )
             )()
-        elseif command == "/maniac ambush" then
+        elseif command == '/maniac ambush' then
             loadstring(
                 game:HttpGet(
                     'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacAmbush'
                 )
             )()
-        elseif command == "/blackout" then
+        elseif command == '/blackout' then
             loadstring(
                 game:HttpGet(
                     'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Blackout.txt'
+                )
+            )()
+        elseif command == '/spawn every entity' then
+            task.spawn(function()
+                loadstring(
+                    game:HttpGet(
+                        'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Blackout.txt'
+                    )
+                )()
+            end)
+            task.spawn(function() end)
+            loadstring(
+                game:HttpGet(
+                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Twister.txt'
+                )
+            )()
+            task.spawn(function() end)
+            loadstring(
+                game:HttpGet(
+                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
+                )
+            )()
+            task.spawn(function() end)
+            loadstring(
+                game:HttpGet(
+                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
+                )
+            )()
+            task.spawn(function() end)
+            loadstring(
+                game:HttpGet(
+                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacAmbush'
                 )
             )()
         end
