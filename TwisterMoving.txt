@@ -61,7 +61,7 @@ end
 
 repeat task.wait(0.1) until Rooms:GetChildren()[#Rooms:GetChildren()]:FindFirstChild("RoomExit")
 
-Twister.CFrame = Rooms:GetChildren()[#Rooms:GetChildren()].RoomExit.CFrame
+Twister.CFrame = Rooms:GetChildren()[#Rooms:GetChildren()]:WaitForChild("RoomExit").CFrame
 
 task.wait(2)
 
@@ -160,6 +160,7 @@ end
 
 
 TwisterModel:Destroy()
+
 
 
 
