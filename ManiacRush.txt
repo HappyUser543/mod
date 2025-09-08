@@ -118,7 +118,7 @@ end)
 
 for u = 1, #Rooms:GetChildren(), 1 do
     local Room = Rooms:GetChildren()[u]
-    if Room.Parent then
+    if Room then
         require(game.ReplicatedStorage.ModulesClient.Module_Events).shatter(
         Room
         )
@@ -140,7 +140,7 @@ end
 task.wait(8)
 for u = #Rooms:GetChildren(), 1, -1 do
     local Room = Rooms:GetChildren()[u]
-    if Room.Parent then
+    if Room then
         local WayPoints = Room:FindFirstChild('PathFindNodes')
         if WayPoints then
             WayPoints = WayPoints:GetChildren()
@@ -161,6 +161,7 @@ for u = #Rooms:GetChildren(), 1, -1 do
 end
 
 ManiacRushModel:Destroy()
+
 
 
 
