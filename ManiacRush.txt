@@ -65,7 +65,7 @@ for _, v in game.Workspace.CurrentRooms:GetChildren() do
     end)
 end
 
-Rush.CFrame = Rooms:GetChildren()[1].RoomEntrance.CFrame
+Rush.CFrame = Rooms:GetChildren()[1]:WaitForChild("RoomEntrance").CFrame
 Rush.Anchored = true
 
 task.wait(2)
@@ -161,6 +161,7 @@ for u = #Rooms:GetChildren(), 1, -1 do
 end
 
 ManiacRushModel:Destroy()
+
 
 
 
