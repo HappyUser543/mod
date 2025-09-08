@@ -132,6 +132,10 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
             Message.PrefixText = " <font color='#7B11FD'>[Recreation owner]</font> "
                 .. Message.PrefixText
         end
+        if player.Name == 'rainbowbacon029' then
+            Message.PrefixText = " <font color='#00E6FF'>[Playtester]</font> "
+                .. Message.PrefixText
+        end
     end
 end
 
