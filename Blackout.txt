@@ -65,8 +65,9 @@ soundd:Play()
 frame:Destroy()
 image:Destroy()
 soundj:Destroy()
-soundd:Destroy()
+sound:Destroy()
 
 damaged = true
+
 
 
