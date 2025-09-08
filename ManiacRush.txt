@@ -155,11 +155,12 @@ for u = #Rooms:GetChildren(), 1, -1 do
             end
         end
         if Room:FindFirstChild('RoomExit') then
-            MoveTo(Room.RoomExit.CFrame, 85, Rush)
+            MoveTo(Room.RoomEntrance.CFrame, 85, Rush)
         end
     end
 end
 
 ManiacRushModel:Destroy()
+
 
 
