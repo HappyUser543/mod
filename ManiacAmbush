@@ -61,7 +61,7 @@ end)
 for i = 1 , 6 do
 	for u = 1 , #Rooms:GetChildren() , 1 do
         local Room = Rooms:GetChildren()[u]
-		if Room.Parent then
+		if Room then
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
 				WayPoints = WayPoints:GetChildren()
@@ -77,7 +77,7 @@ for i = 1 , 6 do
     end
 	for u = #Rooms:GetChildren() , 1 , -1 do
         local Room = Rooms:GetChildren()[u]
-		if Room.Parent then
+		if Room then
 			local WayPoints = Room:FindFirstChild("PathFindNodes")
 			if WayPoints then
 				WayPoints = WayPoints:GetChildren()
@@ -87,7 +87,7 @@ for i = 1 , 6 do
                     MoveTo(Point.CFrame,170,Ambush)
                 end
             end
-            if Room:FindFirstChild("RoomExit") then
+            if Room:FindFirstChild("RoomEntrance") then
                 MoveTo(Room.RoomExit.CFrame,170,Ambush)
             end
         end
