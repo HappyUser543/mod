@@ -174,46 +174,58 @@ require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
 
 game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
     if table.find(obs, newvalue) then
+        task.spawn(function()
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
             )
         )()
+        end)
     end
     if table.find(twis, newvalue) then
+        task.spawn(function()
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Twister.txt'
             )
         )()
+        end)
     end
     if table.find(thr, newvalue) then
+        task.spawn(function()
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Threat.txt'
             )
         )()
+        end)
     end
     if table.find(rsh, newvalue) then
+        task.spawn(function()
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
             )
         )()
+        end)
     end
     if table.find(ambsh, newvalue) then
+        task.spawn(function()
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacAmbush'
             )
         )()
+        end)
     end
     if table.find(blck, newvalue) then
+        task.spawn(function()
         loadstring(
             game:HttpGet(
                 'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Blackout.txt'
             )
         )()
+        end)
     end
     task.wait(1.2)
     local waypoints = game.Workspace.CurrentRooms
