@@ -1,1 +1,73 @@
+task.spawn(functions.TitleLocation, 'The Whiteout', 5)
+game.Lighting.FogEnd = 150
+game.Lighting.FogStart = 3
+game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+local wh = Instance.new('ColorCorrectionEffect', game.Lighting)
+wh.TintColor = Color3.fromRGB(150, 180, 255)
+wh.Contrast = 2
+wh.Brightness = 1
+game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
 
+task.wait(2.5)
+
+function MoveTo(cframe,speed,model)
+	local reached = false
+	local connection; connection = game:GetService("RunService").Stepped:Connect(function(_, step)
+        local pivot = model:GetPivot()
+        local difference = (cframe.Position - pivot.Position)
+        local unit = difference.Unit
+        local magnitude = difference.Magnitude
+
+        if magnitude > 0.1 then
+            model:PivotTo(pivot + unit * math.min(step * speed, magnitude))
+        else
+            connection:Disconnect()
+            reached = true
+        end
+    end)
+	repeat game:GetService("RunService").Stepped:Wait() until reached
+end
+
+local FogModel = local fmodel = LoadCustomInstance("https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Mayhem%20mode%20recreate/Foggy.rbxm","Foggy_model")
+local entity = fmodel.FogMonster
+entity.Parent = game.workspace
+
+local room = game.Workspace.CurrentRooms["50"]
+entity.CFrame = room.RoomExit.CFrame
+local nodes = room.FigureSetup:FindFirstChild("FigureNodes")
+
+task.spawn(function()
+    while FogModel.Parent and task.wait() do
+        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - entity.Position).Magnitude
+        if distance < 75 then
+            local magnet = 3/75*(75-distance)
+            local roght = 20/75*(75-distance)
+            require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).camShaker:ShakeOnce(magnet,roght, 0.1, 1)
+        end
+        local ray = game.Workspace:Raycast(fentity.Position, (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - fentity.Position).Unit * 50)
+        if ray.Instance.Parent == game.Players.LocalPlayer.Character and kill == false and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false or ray.Instance.Parent.Parent == game.Players.LocalPlayer.Character and kill == false and game.Players.LocalPlayer.Character:GetAttribute("Hiding") == false then
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+            firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"Oh... hello.","Not this place again...","Nevermind that... What'd you die to?","Oh… the white one.","It usually hiden in fog, so...","Maybe you could call it Fog?","Anyways, I hope you don't mind trying again. It would ne helpful."},"Yellow")
+            game.ReplicatedStorage.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "Fog"           
+        end
+    end
+end)
+
+task.spawn(function()
+    while FogModel.Parent do
+        if nodes then
+            for _ , node in nodes:GetChildren() do
+                if node.Parent then
+                    MoveTo(node.CFrame + Vector3.new(0,4,0))
+                end
+            end
+        end
+        task.wait()
+    end
+end)
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
+game.Lighting.FogEnd = 10000
+game.Lighting.FogStart = 0
+game.Lighting.FogColor = Color3.fromRGB(0, 0, 0)
+wh:Destroy()
