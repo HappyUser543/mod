@@ -123,7 +123,7 @@ for i = 0, 4, 1 do
     table.insert(rsh, rshr:NextInteger(i, 100))
 end
 
-local AdminCommands = { 7471771361, 9162624705 }
+local AdminCommands = { 7471771361, 8361079437 }
 
 local TextChatService = game:GetService('TextChatService')
 
@@ -134,7 +134,7 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
             Message.PrefixText = "<font color='#7B11FD'>[Recreation owner]</font>"
                 .. Message.PrefixText
         end
-        if Message.TextSource.UserId == 9162624705 then
+        if Message.TextSource.UserId == 8361079437 then
             Message.PrefixText = "<font color='#00E6FF'>[Playtester]</font>"
                 .. Message.PrefixText
         end
