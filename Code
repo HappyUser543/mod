@@ -223,7 +223,7 @@ require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
     'Mayhem mode - v1.1.0',
     true
 )
-task.wait(2)
+task.wait(3)
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
     'Made by ThatOneAmethystCreature#0001',
     true
@@ -250,9 +250,9 @@ require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
     'Mayhem mode is now active',
     true
 )
-task.wait(2)
+task.wait(3)
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Recreation made by LocalPlayer',
+    'Recreated and continued by LocalPlayer',
     true
 )
 
