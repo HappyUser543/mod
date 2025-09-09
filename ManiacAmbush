@@ -67,11 +67,11 @@ for i = 1 , 6 do
 				WayPoints = WayPoints:GetChildren()
 				for _ , Point in WayPoints do
                     if not Point.Parent then continue end
-                    MoveTo(Point.CFrame,170,Ambush)
+                    MoveTo(Point.CFrame + vector3.new(0,4,0),170,Ambush)
                 end
             end
             if Room:FindFirstChild("RoomExit") then
-                MoveTo(Room.RoomExit.CFrame,170,Ambush)
+                MoveTo(Room.RoomExit.CFrame + vector3.new(0,4,0),170,Ambush)
             end
         end
     end
