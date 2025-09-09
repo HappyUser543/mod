@@ -111,6 +111,18 @@ task.spawn(function()
                     ) == false
             then
                 Threat:SetAttribute('Paused', true)
+                local threatjump = Instance.new("sound",game.Workspace)
+                threatjump.Soundid = "rbxassetid://7085879559"
+                threatjump.Volume = 0.5
+                local dislike = Instance.new("DistortionSoundEffect",threatjump)
+                dislike.Level = 0.75
+                local equal = Instance.new("EqualizerSoundEffect",threatjump)
+                equal.HighGain = 0
+                equal.MidGain = -10
+                equal.LowGain = -20
+                local pitch  = Instance.new("PitchShiftSoundEffect",threatjump)
+                pitch.Octave = 1
+                threatjump:Play()
                 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored =
                     true
                 for _, obj in Threat:GetDescendants() do
@@ -232,6 +244,7 @@ end
 ThreatModel:Destroy()
 
 correction:Destroy()
+
 
 
 
