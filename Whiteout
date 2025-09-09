@@ -36,6 +36,8 @@ local room = game.Workspace.CurrentRooms["50"]
 entity.CFrame = room.RoomExit.CFrame
 local nodes = room.FigureSetup:FindFirstChild("FigureNodes")
 
+room.FigureSetup.Ambience.SoundId = ""
+
 task.spawn(function()
     while FogModel.Parent and task.wait() do
         local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - entity.Position).Magnitude
