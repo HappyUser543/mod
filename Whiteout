@@ -57,7 +57,40 @@ local room = game.Workspace.CurrentRooms['50']
 entity.CFrame = room.RoomExit.CFrame
 local nodes = room.FigureSetup:FindFirstChild('FigureNodes')
 
-room.FigureSetup.Ambience.SoundId = 'rbxassetid://115363002263800'
+room.FigureSetup.Ambience:Destroy()
+function LoadCustomSound(url: string, Name: string)
+    if not isfile(Name .. '.mp3') then
+        writefile(Name .. '.mp3', game:HttpGet(url))
+    end
+
+    return getcustomasset(Name .. '.mp3', true)
+end
+
+task.spawn(function()
+    while FogModel.Parent() do
+        local ambient = Instance.new('Sound', game.SoundService)
+        ambient.Volume = 0
+        ambient.SoundId = LoadCustomSound(
+            'https://github.com/localplayerr/Doors-stuff/raw/refs/heads/main/Mayhem%20mode%20recreate/Calm.MP3',
+            'Calm'
+        )
+    
+        ambient:Play()
+    
+        while ambient.Volume <= 1 do
+            task.wait(0.5)
+            ambient.Volume += 0.1
+        end
+    
+        task.wait(40)
+        task.spawn(function()
+            while ambient.Volume >= 0 do
+                task.wait(0.5)
+                ambient.Volume -= 0.1
+            end
+        end)
+    end
+end)
 
 task.spawn(function()
     while task.wait() do
