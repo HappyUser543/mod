@@ -129,7 +129,7 @@ for u = 1, #Rooms:GetChildren(), 1 do
                 if not Point.Parent then
                     continue
                 end
-                MoveTo(Point.CFrame + vector3.new(0,4,0), 85, Rush)
+                MoveTo(Point.CFrame + Vector3.new(0,4,0), 85, Rush)
             end
         end
         if Room:FindFirstChild('RoomExit') then
@@ -151,7 +151,7 @@ for u = #Rooms:GetChildren(), 1, -1 do
                 if not Point.Parent then
                     continue
                 end
-                MoveTo(Point.CFrame + vector3.new(0,4,0), 85, Rush)
+                MoveTo(Point.CFrame + Vector3.new(0,4,0), 85, Rush)
             end
         end
         if Room:FindFirstChild('RoomExit') then
@@ -161,6 +161,7 @@ for u = #Rooms:GetChildren(), 1, -1 do
 end
 
 ManiacRushModel:Destroy()
+
 
 
 
