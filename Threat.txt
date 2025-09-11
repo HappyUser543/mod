@@ -112,7 +112,7 @@ task.spawn(function()
             then
                 Threat:SetAttribute('Paused', true)
                 local threatjump = Instance.new("Sound",game.Workspace)
-                threatjump.Soundid = "rbxassetid://7085879559"
+                threatjump.SoundId = "rbxassetid://7085879559"
                 threatjump.Volume = 0.5
                 local dislike = Instance.new("DistortionSoundEffect",threatjump)
                 dislike.Level = 0.75
@@ -244,6 +244,7 @@ end
 ThreatModel:Destroy()
 
 correction:Destroy()
+
 
 
 
