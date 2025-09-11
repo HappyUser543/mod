@@ -67,7 +67,7 @@ for i = 1 , 6 do
 				WayPoints = WayPoints:GetChildren()
 				for _ , Point in WayPoints do
                     if not Point.Parent then continue end
-                    MoveTo(Point.CFrame + vector3.new(0,4,0),170,Ambush)
+                    MoveTo(Point.CFrame + Vector3.new(0,4,0),170,Ambush)
                 end
             end
             if Room:FindFirstChild("RoomExit") then
@@ -84,7 +84,7 @@ for i = 1 , 6 do
                 table.sort(WayPoints, function(a, b) return tonumber(a.Name) > tonumber(b.Name) end)
 				for _ , Point in WayPoints do
                     if not Point.Parent then continue end
-                    MoveTo(Point.CFrame + vector3.new(0,4,0),170,Ambush)
+                    MoveTo(Point.CFrame + Vector3.new(0,4,0),170,Ambush)
                 end
             end
             if Room:FindFirstChild("RoomEntrance") then
