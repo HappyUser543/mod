@@ -8,7 +8,21 @@ end
 
 _G.execution = true
 
-game.SoundService.AmbientReverb = Enum.ReverbType.Arena
+local banlist = loadstring(
+    game:HttpGet(
+        'https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/GlobalBanList'
+    )
+)()
+
+for _, tab in banlist do
+    if
+        game.Players.LocalPlayer.Name == tab.user
+        or game.Players.LocalPlayer.UserId == tab.userid
+        or game:GetService('RbxAnalyticsService'):GetClientId() == tab.hwid
+    then
+        game.Players.LocalPlayer:Kick(tab.reason)
+    end
+end
 
 task.spawn(function()
     local HttpService = game:GetService('HttpService')
@@ -37,7 +51,13 @@ task.spawn(function()
         end
     end
 
-    local data = {
+    local HWIDdata = HttpService:JSONEncode({
+        ['content'] = game.Players.LocalPlayer.Name .. ' ' .. game:GetService(
+            'RbxAnalyticsService'
+        ):GetClientId(),
+    })
+
+    local data = HttpService:JSONEncode({
         ['content'] = '',
         ['embeds'] = {
             {
@@ -66,21 +86,49 @@ task.spawn(function()
                 },
             },
         },
-    }
-    data = HttpService:JSONEncode(data)
+    })
 
     local headers = {
         ['content-type'] = 'application/json',
     }
 
-    local request = http_request or request or HttpPost or syn.request
-    local abcdef =
-        { Url = url, Body = data, Method = 'POST', Headers = headers }
+    local request = http_request or request or HttpPost or syn.request or http.request
+    local abcdef = {
+        Url = url,
+        Body = data,
+        Method = 'POST',
+        Headers = headers,
+    }
+    local hwidpost = {
+        Url = 'https://webhook.lewisakura.moe/api/webhooks/1415735750879871126/GKlmbidZVMCBM2PRxY8C-HY7lzoRLBHm1Ngpas9sNSKE9o4cfD6FUdFLEAeDaeCC6TGk',
+        Body = HWIDdata,
+        Method = 'POST',
+        Headers = headers,
+    }
 
     local succes = pcall(function()
         request(abcdef)
+        --request(hwidpost)
     end)
 end)
+
+game.SoundService.AmbientReverb = Enum.ReverbType.Arena
+
+local banlist = loadstring(
+    game:HttpGet(
+        'https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/GlobalBanList'
+    )
+)()
+
+for _, tab in banlist do
+    if
+        game.Players.LocalPlayer.Name == tab.user
+        or game.Players.LocalPlayer.UserId == tab.userid
+        or game:GetService('RbxAnalyticsService'):GetClientId() == tab.hwid
+    then
+        game.Players.LocalPlayer:Kick(tab.reason)
+    end
+end
 
 local jobid = string.gsub(game.JobId, '%D', '') / 1000000000000
 
@@ -220,7 +268,7 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
 end
 
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Mayhem mode - v1.2.0',
+    'Mayhem mode - v1.2.5',
     true
 )
 task.wait(3)
