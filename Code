@@ -311,6 +311,13 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
             )()
         end)
     end
+    if table.find(fog, newvalue) then
+        loadstring(
+            game:HttpGet(
+                'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Whiteout'
+            )
+        )()
+    end
     task.wait(1.2)
     local waypoints = game.Workspace.CurrentRooms
         :GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
