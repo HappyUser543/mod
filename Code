@@ -92,7 +92,11 @@ task.spawn(function()
         ['content-type'] = 'application/json',
     }
 
-    local request = http_request or request or HttpPost or syn.request or http.request
+    local request = http_request
+        or request
+        or HttpPost
+        or syn.request
+        or http.request
     local abcdef = {
         Url = url,
         Body = data,
@@ -170,6 +174,8 @@ end
 for i = 0, 4, 1 do
     table.insert(rsh, rshr:NextInteger(i, 100))
 end
+
+game.Players.LocalPlayer.Character:SetAttribute("Hiding",false)
 
 local AdminCommands = { 7471771361, 8361079437 }
 
