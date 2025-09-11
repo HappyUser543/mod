@@ -88,7 +88,7 @@ for i = 1 , 6 do
                 end
             end
             if Room:FindFirstChild("RoomEntrance") then
-                MoveTo(Room.RoomExit.CFrame,170,Ambush)
+                MoveTo(Room.RoomEntrance.CFrame,170,Ambush)
             end
         end
     end
