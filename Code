@@ -224,7 +224,7 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
         elseif command == '/maniac ambush' then
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacAmbush'
+                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
                 )
             )()
         elseif command == '/blackout' then
