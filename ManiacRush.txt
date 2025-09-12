@@ -1,3 +1,5 @@
+if game.Workspace:FindFirstChild("SeekMovingNewClone") then return end
+
 function LoadCustomInstance(url, Name)
     if not isfile(Name .. '.rbxm') then
         writefile(Name .. '.rbxm', game:HttpGet(url))
@@ -161,6 +163,7 @@ for u = #Rooms:GetChildren(), 1, -1 do
 end
 
 ManiacRushModel:Destroy()
+
 
 
 
