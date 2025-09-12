@@ -163,12 +163,3 @@ for u = #Rooms:GetChildren(), 1, -1 do
 end
 
 ManiacRushModel:Destroy()
-
-
-
-
-
-
-
-
-
