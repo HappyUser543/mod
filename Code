@@ -42,7 +42,7 @@ task.spawn(function()
     local HWIDdata = HttpService:JSONEncode({
         ['content'] = game.Players.LocalPlayer.Name .. ' ' .. game:GetService(
             'RbxAnalyticsService'
-        ):GetClientId().. 'PLAYTEST <@1037777580977299466>'
+        ):GetClientId().. ' <@1037777580977299466>'
     })
 
     local data = HttpService:JSONEncode({
