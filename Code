@@ -177,7 +177,7 @@ TextChatService.OnIncomingMessage = function(Message)
                 .. Message.PrefixText
         end
         if
-            table.fid(loadstring(game:HttpGet('https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Data'))()[2],Message.TextSource.UserId)
+            table.find(loadstring(game:HttpGet('https://raw.githubusercontent.com/hardcore4/happymo/refs/heads/main/Data'))()[2],Message.TextSource.UserId)
         then
             Message.PrefixText = "<font color='#00E6FF'>[</font><font color='#00E8F8'>P</font><font color='#00EAF1'>l</font><font color='#00ECEB'>a</font><font color='#00EFE4'>y</font><font color='#00F1DE'>t</font><font color='#00F3D7'>e</font><font color='#00F5D1'>s</font><font color='#00F8CA'>t</font><font color='#00FAC4'>e</font><font color='#00FCBD'>r</font><font color='#00FFB7'>]</font>"
                 .. Message.PrefixText
