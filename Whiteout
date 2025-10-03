@@ -66,7 +66,6 @@ local room = game.Workspace.CurrentRooms["50"]
 entity.CFrame = room.RoomExit.CFrame
 local nodes = room.FigureSetup:FindFirstChild("FigureNodes")
 
-room.FigureSetup.Ambience:Destroy()
 function LoadCustomSound(url, Name)
     if not isfile(Name .. ".mp3") then
         writefile(Name .. ".mp3", game:HttpGet(url))
@@ -80,7 +79,7 @@ Ambience.SoundId = LoadCustomSound("https://github.com/localplayerr/Doors-stuff/
 Ambience.Looped = true
 
 task.spawn(function()
-	task.wait(3)
+	task.wait(5)
 	Ambience:Play()
 end)
 
